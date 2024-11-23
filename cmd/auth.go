@@ -20,6 +20,7 @@ func HandleLoginPage(w http.ResponseWriter, r *http.Request) {
 
 	t, err := template.ParseFiles("templates/user/login.html")
 	if err != nil {
+		log.Println("Failed to find template:", "templates/user/login.html")
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		return
 	}

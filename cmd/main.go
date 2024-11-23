@@ -20,6 +20,7 @@ func main() {
 		r.Route("/user", func(r chi.Router) {
 			r.Get("/login", HandleLoginPage)
 			r.Post("/token", HandleTokenCreation)
+			r.Post("/authorize", HandleUserAuthorization)
 		})
 	})
 
