@@ -32,28 +32,7 @@ func main() {
 				}
 			})
 
-			r.Post("/token", func(w http.ResponseWriter, r *http.Request) {
-				r.ParseForm()
-				ctx := TokenContext{
-					Username: r.FormValue("username"),
-					Password: r.FormValue("password"),
-				}
-
-				token, err := ctx.CreateToken()
-				if err != nil {
-					log.Println("Failed to generate a user token:", err)
-					http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
-					return
-				}
-
-				if token == "" {
-					log.Println("Token generation returned an empty token.")
-					http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
-					return
-				}
-
-				w.Write([]byte(token))
-			})
+			r.Post("/token", HandleTokenCreation)
 		})
 	})
 
