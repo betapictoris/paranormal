@@ -1,7 +1,6 @@
 package main
 
 import (
-	"html/template"
 	"log"
 	"net/http"
 
@@ -19,19 +18,7 @@ func main() {
 		})
 
 		r.Route("/user", func(r chi.Router) {
-			r.Get("/login", func(w http.ResponseWriter, r *http.Request) {
-				t, err := template.ParseFiles("templates/user/login.html")
-				if err != nil {
-					http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
-					return
-				}
-
-				err = t.Execute(w, nil)
-				if err != nil {
-					log.Println("Failed to fully execute template:", err)
-				}
-			})
-
+			r.Get("/login", HandleLoginPage)
 			r.Post("/token", HandleTokenCreation)
 		})
 	})
